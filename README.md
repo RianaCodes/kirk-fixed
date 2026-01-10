@@ -2,8 +2,7 @@
 
 **A CV productivity tool that plays Charlie Kirk whenever you doomscroll or lose focus.**
 
-![](")![Charlie Kirk](https://github.com/reinesana/Charlie-Kirkification/charlie-kirk-project/assets/spam/image-4.png)
-
+![Charlie Kirk](https://github.com/reinesana/Charlie-Kirkification/blob/main/charlie-kirk-project/assets/spam/image-4.png)
 
 ---
 
