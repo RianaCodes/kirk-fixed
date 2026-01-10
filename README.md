@@ -58,7 +58,7 @@ You can customize how the system behaves by editing the configuration values in 
 timer = 2.0  # seconds you can look at your phone before triggering the program
 ```
 
-###Iris detection threshold
+### Iris detection threshold
 Adjust the `l_ratio` and `r_ratio` thresholds to control the sensitivity of iris detection.
 ```python
 if (l_ratio > 0.70) and (r_ratio > 0.70):
