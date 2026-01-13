@@ -40,6 +40,8 @@ cam = cv2.VideoCapture(0)
 # ---------- Main Loop ----------
 while True:
     ret, frame = cam.read()
+    sound.play()
+    time.sleep(1)
     if not ret:
         print("Failed to grab frame from camera")
         break
@@ -80,10 +82,11 @@ while True:
 
         l_ratio = (l_iris.y - left[1].y) / (left[0].y - left[1].y + 1e-6)
         r_ratio = (r_iris.y - right[1].y) / (right[0].y - right[1].y + 1e-6)
+        print(f"L_ratio={l_ratio:.3f}, R_ratio={r_ratio:.3f}")
 
         current = time.time()
 
-        if l_ratio > 0.70 and r_ratio > 0.70:
+        if l_ratio < 0.25 and r_ratio < 0.25:
             if timer_started is None:
                 timer_started = current
 
