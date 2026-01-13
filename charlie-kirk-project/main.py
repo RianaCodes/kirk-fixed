@@ -8,6 +8,7 @@ from PIL import Image
 
 from mediapipe.tasks import python
 from mediapipe.tasks.python import vision
+from mediapipe import Image
 import pygame # pyright: ignore[reportMissingImports]
 import os
 from PIL import Image
@@ -46,7 +47,8 @@ while True:
     frame = cv2.flip(frame, 1)
     height, width, depth = frame.shape
     rgb_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
-    result = face_landmarker.detect(rgb_frame)
+    mp=image = Image(image_format=Image.ImageFormat.SRGB, data=rgb_frame)
+    result = face_landmarker.detect(mp_image)
     face_landmark_points = result.face_landmarks
 
     if face_landmark_points:
