@@ -1,5 +1,13 @@
 import cv2 # type: ignore
-import mediapipe as mp # type: ignore
+import cv2
+import pygame
+import time
+import os
+from pathlib import Path
+from PIL import Image
+
+from mediapipe.tasks import python
+from mediapipe.tasks.python import vision
 import pygame # pyright: ignore[reportMissingImports]
 import os
 from PIL import Image
@@ -11,7 +19,20 @@ sound = pygame.mixer.Sound(
     "./assets/we-are-charlie-kirk-song.mp3"
 )
 
-face_mesh_landmarks = mp.solutions.face_mesh.FaceMesh(refine_landmarks=True)
+# -------- MediaPipe FaceLandmarker Setup --------
+
+model_path = "face_landmarker.task"
+
+base_options = python.BaseOptions(
+    model_asset_path=model_path
+)
+
+options = vision.FaceLandmarkerOptions(
+    base_options=base_options,
+    num_faces=1
+)
+
+face_landmarker = vision.FaceLandmarker.create_from_options(options)
 spam = Path("assets/spam")
 timer = 2.0
 timer_started = None
@@ -25,11 +46,11 @@ while True:
     frame = cv2.flip(frame, 1)
     height, width, depth = frame.shape
     rgb_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
-    processed_image = face_mesh_landmarks.process(rgb_frame)
-    face_landmark_points = processed_image.multi_face_landmarks
+    result = face_landmarker.detect(rgb_frame)
+    face_landmark_points = result.face_landmarks
 
     if face_landmark_points:
-        one_face_landmark_points = face_landmark_points[0].landmark
+        one_face_landmark_points = face_landmark_points[0]
         
         left = [one_face_landmark_points[145], one_face_landmark_points[159]]
         for landmark_point in left:
